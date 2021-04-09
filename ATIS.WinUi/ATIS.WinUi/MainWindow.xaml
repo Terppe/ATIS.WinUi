@@ -1,0 +1,323 @@
+﻿<Window
+    x:Class="ATIS.WinUi.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel>
+            <NavigationView
+                x:Name="NaviView"
+                Header="ATIS"
+                IsBackButtonVisible="Collapsed"
+                IsSettingsVisible="True"
+                IsTitleBarAutoPaddingEnabled="False"
+                PaneDisplayMode="Auto"
+                PaneTitle=""  
+                SelectionChanged="NaviView_SelectionChanged">
+                <NavigationView.MenuItems>
+                    <NavigationViewItem
+                        Content="Home" 
+                        Icon="Home"
+                        IsSelected="True"
+                        Tag="Home"
+                        ToolTipService.ToolTip="Home" />
+                    <NavigationViewItemSeparator />
+                    <NavigationViewItemHeader x:Name="MainPagesHeader1" Content="Main pages" />
+                    <NavigationViewItem
+                        Content="Account" ToolTipService.ToolTip="Account"
+                        Icon="Contact"
+                        Tag="Account" />
+                    <NavigationViewItem
+                        Content="Document"  ToolTipService.ToolTip="Document"
+                        Icon="Page2"
+                        Tag="Document" />
+                    <NavigationViewItem Content="Apps" Tag="apps">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB3C;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem Content="Games" Tag="games">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem
+                        Content="Music"
+                        Icon="Audio"
+                        Tag="music" />
+                    <NavigationViewItem
+                        Content="Collections"
+                        Icon="Keyboard"
+                        ToolTipService.ToolTip="Collections">
+                        <NavigationViewItem.MenuItems>
+                            <NavigationViewItem
+                                Content="Notes"
+                                Icon="Page" Tag="page"
+                                ToolTipService.ToolTip="Notes" />
+                            <NavigationViewItem
+                                Content="Mail" Tag="mail"
+                                Icon="Mail"
+                                ToolTipService.ToolTip="Mail" />
+                        </NavigationViewItem.MenuItems>
+                    </NavigationViewItem>
+                    <NavigationViewItem x:Name="N" Content="N" />
+                    <NavigationViewItem x:Name="O" Content="O" />
+                    <NavigationViewItem x:Name="P" Content="P" />
+                </NavigationView.MenuItems>
+
+                <NavigationView.AutoSuggestBox>
+                    <!--
+                        See AutoSuggestBox documentation for
+                        more info about how to implement search.
+                    -->
+                    <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find" />
+                </NavigationView.AutoSuggestBox>
+
+                <ScrollViewer Margin="0,0,0,12">
+                    <Frame x:Name="ContentFrame" Padding="12,0,12,12" />
+                    <!--<Frame x:Name="ContentFrame">
+                        <Frame.Background>
+                            <ImageBrush ImageSource="Assets/microsoft.png"/>
+                        </Frame.Background>
+                        <Frame.ContentTransitions>
+                            <TransitionCollection>
+                                <NavigationThemeTransition />
+                            </TransitionCollection>
+                        </Frame.ContentTransitions>
+                    </Frame>-->
+                </ScrollViewer>
+
+            </NavigationView>
+
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualState>
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="{x:Bind NaviView.CompactModeThresholdWidth}" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+
+                            <!--  Remove the next 3 lines for left-only navigation.  -->
+
+                            <Setter Target="NavView.PaneDisplayMode" Value="LeftCompact" />
+                            <Setter Target="NavViewSearchBox.Width" Value="200" />
+                            <Setter Target="MainPagesHeader.Visibility" Value="Collapsed" />
+
+                            <!--  Leave the next line for left-only navigation.  -->
+
+                            <Setter Target="ContentFrame.Padding" Value="24,0,24,24" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </StackPanel>
+        <!--<StackPanel>
+            <muxc:NavigationView
+                x:Name="NavView"
+                BackRequested="NavView_BackRequested"
+                ItemInvoked="NavView_ItemInvoked"
+                Loaded="NavView_Loaded">
+                <muxc:NavigationView.MenuItems>
+                    <muxc:NavigationViewItem
+                        Content="Home"
+                        Icon="Home"
+                        Tag="home" />
+                    <muxc:NavigationViewItemSeparator />
+                    <muxc:NavigationViewItemHeader x:Name="MainPagesHeader1" Content="Main pages" />
+                    <muxc:NavigationViewItem Content="Apps" Tag="apps">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB3C;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem Content="Games" Tag="games">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem
+                        Content="Music"
+                        Icon="Audio"
+                        Tag="music" />
+                </muxc:NavigationView.MenuItems>
+
+                <muxc:NavigationView.AutoSuggestBox>
+        -->
+        <!--
+            See AutoSuggestBox documentation for
+            more info about how to implement search.
+        -->
+        <!--
+                    <AutoSuggestBox x:Name="NavViewSearchBox1" QueryIcon="Find" />
+                </muxc:NavigationView.AutoSuggestBox>
+
+                <ScrollViewer>
+                    <Frame
+                        x:Name="ContentFrame1"
+                        Padding="12,0,12,24"
+                        IsTabStop="True"
+                        NavigationFailed="ContentFrame_NavigationFailed" />
+                </ScrollViewer>
+            </muxc:NavigationView>
+
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualState>
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="{x:Bind NavViewCompactModeThresholdWidth}" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+        -->
+        <!--  Remove the next 3 lines for left-only navigation.  -->
+        <!--
+                            <Setter Target="NavView.PaneDisplayMode" Value="Top" />
+                            <Setter Target="NavViewSearchBox.Width" Value="200" />
+                            <Setter Target="MainPagesHeader.Visibility" Value="Collapsed" />
+        -->
+        <!--  Leave the next line for left-only navigation.  -->
+        <!--
+                            <Setter Target="ContentFrame.Padding" Value="24,0,24,24" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </StackPanel>-->
+
+        <!--  ok  -->
+        <StackPanel>
+            <!--<NavigationView x:Name="NavigationViewControl" IsBackButtonVisible="Collapsed">
+                <NavigationView.MenuItems>
+                    <NavigationViewItem x:Name="A" Content="A" />
+                    <NavigationViewItem x:Name="B" Content="B" />
+                    <NavigationViewItem x:Name="C" Content="C" />
+                    <NavigationViewItem
+                        Content="Home"
+                        Icon="Home"
+                        Tag="home" />
+                    <NavigationViewItemSeparator />
+                    <NavigationViewItemHeader x:Name="MainPagesHeader" Content="Main pages" />
+                    <NavigationViewItem Content="Apps" Tag="apps">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB3C;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem Content="Games" Tag="games">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem
+                        Content="Music"
+                        Icon="Audio"
+                        Tag="music" />
+                    <NavigationViewItem x:Name="N" Content="N" />
+                    <NavigationViewItem x:Name="O" Content="O" />
+                    <NavigationViewItem x:Name="P" Content="P" />
+                    <NavigationViewItem x:Name="Q" Content="Q" />
+                    <NavigationViewItem x:Name="R" Content="R" />
+                </NavigationView.MenuItems>
+
+                <NavigationView.AutoSuggestBox>
+            -->
+            <!--
+                See AutoSuggestBox documentation for
+                more info about how to implement search.
+            -->
+            <!--
+                    <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find" />
+                </NavigationView.AutoSuggestBox>
+                <ScrollViewer>
+                    <Frame
+                        x:Name="ContentFrame"
+                        Padding="12,0,12,24"
+                        IsTabStop="True"
+                        NavigationFailed="ContentFrame_NavigationFailed" />
+                </ScrollViewer>
+            </NavigationView>-->
+
+        </StackPanel>
+
+
+        <StackPanel>
+            <!--  Validation Panel  -->
+            <!--<InfoBar
+                Title="Not amused"
+                IsOpen="True"
+                Message="I think we need a recount ..."
+                Severity="Warning" />-->
+            <!--  Office 365 Status Bar  -->
+            <!--<InfoBar
+                Title="UPDATES ARE AVAILABLE"
+                IsOpen="True"
+                Message="Do you want to update this app right now? It will close and reopen."
+                Severity="Informational">
+                <InfoBar.ActionButton>
+                    <Button Content="Update" />
+                </InfoBar.ActionButton>
+            </InfoBar>-->
+            <!--  Visual Studio Status Bar  -->
+            <!--<InfoBar
+                Title="Performance report"
+                IsOpen="True"
+                Message="There's this weird extension slowing down the startup."
+                Severity="Informational">
+                <InfoBar.ActionButton>
+                    <HyperlinkButton Content="Tell me more about this" />
+                </InfoBar.ActionButton>
+            </InfoBar>-->
+            <!--  One that Edge and Outlook should have  -->
+            <!--<InfoBar
+                x:Name="PreferencesInfoBar"
+                Title="Preferences updated"
+                IsClosable="False"
+                IsOpen="True"
+                Message="We changed your user preferences, you like it?"
+                Severity="Informational">
+                <InfoBar.ActionButton>
+                    <DropDownButton>
+                        <TextBlock
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="14"
+                            Text="" />
+                        <DropDownButton.Flyout>
+                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                <MenuFlyoutItem
+                                    Click="MenuFlyoutItem_Click"
+                                    Icon="Emoji2"
+                                    Text="Keep" />
+                                <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="Revert">
+                                    <MenuFlyoutItem.Icon>
+                                        <FontIcon Glyph="" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                                <MenuFlyoutItem
+                                    Click="MenuFlyoutItem_Click"
+                                    Icon="Emoji"
+                                    Text="Revert and never touch my preferences again" />
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
+                </InfoBar.ActionButton>
+            </InfoBar>-->
+            <!--  Toast (with ignored customizations)  -->
+            <InfoBar
+                Title="WOOHOO"
+                Height="120"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                CornerRadius="8"
+                IsOpen="True"
+                Message="Data has been saved properly."
+                Severity="Success">
+                <InfoBar.Content>
+                    <TextBlock
+                        Padding="0,0,0,12"
+                        Foreground="DimGray"
+                        Text="Keep up the good work ..." />
+                </InfoBar.Content>
+            </InfoBar>
+        </StackPanel>
+    </Grid>
+</Window>
