@@ -3,6 +3,8 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using ATIS.WinUi.Views;
+using ATIS.WinUi.Views.Pages;
 // Add "using" for WinUI controls.
 using muxc = Microsoft.UI.Xaml.Controls;
 
@@ -14,12 +16,22 @@ namespace ATIS.WinUi
     public enum NaviIcon
     {
         Home,
+        Fish,
+        Plant,
         Account,
         Document,
         Game,
         Music,
         Page,
         Mail,
+        Diseases,
+        Food,
+        Div,
+        Search,
+        About,
+        User,
+        Admin,
+        Setting,
 
         None,
     }
@@ -29,17 +41,20 @@ namespace ATIS.WinUi
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        private static IReadOnlyDictionary<NaviIcon, Type> _pages = new Dictionary<NaviIcon, Type>()
+        private static readonly IReadOnlyDictionary<NaviIcon, Type> Pages = new Dictionary<NaviIcon, Type>()
         {
-            {NaviIcon.Home, typeof(Pages.HomePage)},
-            {NaviIcon.Account, typeof(Pages.AccountPage)},
-            {NaviIcon.Document, typeof(Pages.DocumentPage)},
-            {NaviIcon.Game, typeof(Pages.GamePage)},
-            {NaviIcon.Music, typeof(Pages.MusicPage)},
-            {NaviIcon.Page, typeof(Pages.NotesPage)},
-            {NaviIcon.Mail, typeof(Pages.MailPage)},
+            {NaviIcon.Home, typeof(HomePage)},
+            {NaviIcon.Fish, typeof(FishPage)},
+            {NaviIcon.Plant, typeof(PlantPage)},
+            {NaviIcon.Account, typeof(DiseasePage)},
+            {NaviIcon.Document, typeof(FoodPage)},
+            {NaviIcon.Document, typeof(DivPage)},
+            {NaviIcon.Search, typeof(SearchPage)},
+            {NaviIcon.Music, typeof(AboutPage)},
+            {NaviIcon.Page, typeof(UserPage)},
+            {NaviIcon.Mail, typeof(AdminPage)},
             //None
-            {NaviIcon.None, typeof(Pages.BlankPage)},
+            {NaviIcon.None, typeof(SettingPage)},
         };
 
         public MainWindow()
@@ -59,11 +74,11 @@ namespace ATIS.WinUi
 
                 if (Enum.TryParse(iconName, out NaviIcon icon))
                 {
-                    ContentFrame.Navigate(_pages[icon]);
+                    ContentFrame.Navigate(Pages[icon]);
                 }
                 else
                 {
-                    ContentFrame.Navigate(_pages[NaviIcon.None]);
+                    ContentFrame.Navigate(Pages[NaviIcon.None]);
                 }
             }
             catch (Exception ex)
@@ -75,5 +90,12 @@ namespace ATIS.WinUi
 
         public double NavViewCompactModeThresholdWidth => NaviView.CompactModeThresholdWidth;
 
+        private async void Login_Click(object sender, RoutedEventArgs e)
+        {
+            LogInView log = new LogInView();
+
+            log.InitializeComponent();
+            await ContentDialog.ShowAsync();
+        }
     }
 }

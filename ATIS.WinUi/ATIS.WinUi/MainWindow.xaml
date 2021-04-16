@@ -10,16 +10,16 @@
         <StackPanel>
             <NavigationView
                 x:Name="NaviView"
-                Header="ATIS"
+                Header="ATIS"   
                 IsBackButtonVisible="Collapsed"
-                IsSettingsVisible="True"
+                IsSettingsVisible="True" 
                 IsTitleBarAutoPaddingEnabled="False"
                 PaneDisplayMode="Auto"
-                PaneTitle=""  
+                PaneTitle=""
                 SelectionChanged="NaviView_SelectionChanged">
                 <NavigationView.MenuItems>
                     <NavigationViewItem
-                        Content="Home" 
+                        Content="Home"
                         Icon="Home"
                         IsSelected="True"
                         Tag="Home"
@@ -27,45 +27,57 @@
                     <NavigationViewItemSeparator />
                     <NavigationViewItemHeader x:Name="MainPagesHeader1" Content="Main pages" />
                     <NavigationViewItem
-                        Content="Account" ToolTipService.ToolTip="Account"
+                        Content="Fishes"
                         Icon="Contact"
-                        Tag="Account" />
+                        Tag="Fish"
+                        ToolTipService.ToolTip="Fish" />
                     <NavigationViewItem
-                        Content="Document"  ToolTipService.ToolTip="Document"
+                        Content="Plants"
+                        Icon="Contact"
+                        Tag="Plant"
+                        ToolTipService.ToolTip="Plant" />
+                    <NavigationViewItem
+                        Content="Diseases"
+                        Icon="Contact"
+                        Tag="Disease"
+                        ToolTipService.ToolTip="Diseases" />
+                    <NavigationViewItem
+                        Content="Foods"
                         Icon="Page2"
-                        Tag="Document" />
-                    <NavigationViewItem Content="Apps" Tag="apps">
+                        Tag="Food"
+                        ToolTipService.ToolTip="Foods" />
+                    <NavigationViewItem Content="Divs" Tag="Div">
                         <NavigationViewItem.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB3C;" />
                         </NavigationViewItem.Icon>
                     </NavigationViewItem>
-                    <NavigationViewItem Content="Games" Tag="games">
+                    <NavigationViewItem Content="Search" Tag="Search">
                         <NavigationViewItem.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;" />
                         </NavigationViewItem.Icon>
                     </NavigationViewItem>
                     <NavigationViewItem
-                        Content="Music"
+                        Content="About"
                         Icon="Audio"
-                        Tag="music" />
+                        Tag="About" />
                     <NavigationViewItem
                         Content="Collections"
                         Icon="Keyboard"
                         ToolTipService.ToolTip="Collections">
                         <NavigationViewItem.MenuItems>
                             <NavigationViewItem
-                                Content="Notes"
-                                Icon="Page" Tag="page"
-                                ToolTipService.ToolTip="Notes" />
+                                Content="User"
+                                Icon="Page"
+                                Tag="User"
+                                ToolTipService.ToolTip="User" />
                             <NavigationViewItem
-                                Content="Mail" Tag="mail"
+                                Content="Admin"
                                 Icon="Mail"
-                                ToolTipService.ToolTip="Mail" />
+                                Tag="Admin"
+                                ToolTipService.ToolTip="Admin" />
                         </NavigationViewItem.MenuItems>
                     </NavigationViewItem>
                     <NavigationViewItem x:Name="N" Content="N" />
-                    <NavigationViewItem x:Name="O" Content="O" />
-                    <NavigationViewItem x:Name="P" Content="P" />
                 </NavigationView.MenuItems>
 
                 <NavigationView.AutoSuggestBox>
@@ -78,9 +90,9 @@
 
                 <ScrollViewer Margin="0,0,0,12">
                     <Frame x:Name="ContentFrame" Padding="12,0,12,12" />
-                    <!--<Frame x:Name="ContentFrame">
+                    <!--<Frame x:Name="ContentFrame" Padding="12,0,12,12">
                         <Frame.Background>
-                            <ImageBrush ImageSource="Assets/microsoft.png"/>
+                            <ImageBrush ImageSource="Assets/xaml-islands.jpg"/>
                         </Frame.Background>
                         <Frame.ContentTransitions>
                             <TransitionCollection>
@@ -114,6 +126,27 @@
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
         </StackPanel>
+
+        <StackPanel
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Orientation="Horizontal">
+            <Button x:Name="MyButton" Click="Login_Click">Login</Button>
+            <ContentDialog x:Name="ContentDialog" CloseButtonText="Close">
+                <StackPanel>
+                    <!--<Grid xmlns:src="using:LoginView" 
+                          Margin="0,50,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <src:NameReporter Grid.Row="0"/>
+                        <src:NameReporter Grid.Row="1" Margin="0,15,0,0"/>
+                    </Grid>-->
+                </StackPanel>
+            </ContentDialog>
+        </StackPanel>
+
         <!--<StackPanel>
             <muxc:NavigationView
                 x:Name="NavView"
