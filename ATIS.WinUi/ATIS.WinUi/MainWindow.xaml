@@ -10,9 +10,9 @@
         <StackPanel>
             <NavigationView
                 x:Name="NaviView"
-                Header="ATIS"   
+                Header="ATIS"
                 IsBackButtonVisible="Collapsed"
-                IsSettingsVisible="True" 
+                IsSettingsVisible="True"
                 IsTitleBarAutoPaddingEnabled="False"
                 PaneDisplayMode="Auto"
                 PaneTitle=""
@@ -27,57 +27,49 @@
                     <NavigationViewItemSeparator />
                     <NavigationViewItemHeader x:Name="MainPagesHeader1" Content="Main pages" />
                     <NavigationViewItem
-                        Content="Fishes"
+                        Content="Account"
                         Icon="Contact"
-                        Tag="Fish"
-                        ToolTipService.ToolTip="Fish" />
+                        Tag="Account"
+                        ToolTipService.ToolTip="Account" />
                     <NavigationViewItem
-                        Content="Plants"
-                        Icon="Contact"
-                        Tag="Plant"
-                        ToolTipService.ToolTip="Plant" />
-                    <NavigationViewItem
-                        Content="Diseases"
-                        Icon="Contact"
-                        Tag="Disease"
-                        ToolTipService.ToolTip="Diseases" />
-                    <NavigationViewItem
-                        Content="Foods"
+                        Content="Document"
                         Icon="Page2"
-                        Tag="Food"
-                        ToolTipService.ToolTip="Foods" />
-                    <NavigationViewItem Content="Divs" Tag="Div">
+                        Tag="Document"
+                        ToolTipService.ToolTip="Document" />
+                    <NavigationViewItem Content="Apps" Tag="apps">
                         <NavigationViewItem.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB3C;" />
                         </NavigationViewItem.Icon>
                     </NavigationViewItem>
-                    <NavigationViewItem Content="Search" Tag="Search">
+                    <NavigationViewItem Content="Games" Tag="games">
                         <NavigationViewItem.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;" />
                         </NavigationViewItem.Icon>
                     </NavigationViewItem>
                     <NavigationViewItem
-                        Content="About"
+                        Content="Music"
                         Icon="Audio"
-                        Tag="About" />
+                        Tag="music" />
                     <NavigationViewItem
                         Content="Collections"
                         Icon="Keyboard"
                         ToolTipService.ToolTip="Collections">
                         <NavigationViewItem.MenuItems>
                             <NavigationViewItem
-                                Content="User"
+                                Content="Notes"
                                 Icon="Page"
-                                Tag="User"
-                                ToolTipService.ToolTip="User" />
+                                Tag="page"
+                                ToolTipService.ToolTip="Notes" />
                             <NavigationViewItem
-                                Content="Admin"
+                                Content="Mail"
                                 Icon="Mail"
-                                Tag="Admin"
-                                ToolTipService.ToolTip="Admin" />
+                                Tag="mail"
+                                ToolTipService.ToolTip="Mail" />
                         </NavigationViewItem.MenuItems>
                     </NavigationViewItem>
                     <NavigationViewItem x:Name="N" Content="N" />
+                    <NavigationViewItem x:Name="O" Content="O" />
+                    <NavigationViewItem x:Name="P" Content="P" />
                 </NavigationView.MenuItems>
 
                 <NavigationView.AutoSuggestBox>
@@ -90,9 +82,9 @@
 
                 <ScrollViewer Margin="0,0,0,12">
                     <Frame x:Name="ContentFrame" Padding="12,0,12,12" />
-                    <!--<Frame x:Name="ContentFrame" Padding="12,0,12,12">
+                    <!--<Frame x:Name="ContentFrame">
                         <Frame.Background>
-                            <ImageBrush ImageSource="Assets/xaml-islands.jpg"/>
+                            <ImageBrush ImageSource="Assets/microsoft.png"/>
                         </Frame.Background>
                         <Frame.ContentTransitions>
                             <TransitionCollection>
