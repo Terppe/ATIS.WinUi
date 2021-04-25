@@ -7,8 +7,59 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Grid>
-        <StackPanel>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <x:Double x:Key="TileHeight">150</x:Double>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Margin="0,40,0,0"
+            FontWeight="Normal"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="About" />
+        <RichTextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            MaxWidth="840"
+            Margin="0,10,0,0"
+            IsTextSelectionEnabled="True">
+            <Paragraph>
+                This app is the interactive companion to the
+                <Hyperlink NavigateUri="https://developer.microsoft.com/windows/apps/design">Fluent Design System web site</Hyperlink>
+                .
+            </Paragraph>
+            <Paragraph Margin="0,10,0,0">
+                Source code:
+                <Hyperlink NavigateUri="https://github.com/Microsoft/Xaml-Controls-Gallery">GitHub</Hyperlink>
+            </Paragraph>
+            <Paragraph Margin="0,10,0,0">
+                <Run>To clone the source repository:</Run>
+                <Run FontStyle="Italic">git clone https://github.com/Microsoft/Xaml-Controls-Gallery</Run>
+            </Paragraph>
+        </RichTextBlock>
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="0,10,0,0">
+            Version:<Run FontWeight="Bold" Text="{x:Bind Version}" />
+        </TextBlock>
+
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3">
             <StackPanel.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="72" />

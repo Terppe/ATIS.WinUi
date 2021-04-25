@@ -2,11 +2,12 @@
     x:Class="ATIS.WinUi.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ATIS.WinUi.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:ATIS.WinUi.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -18,84 +19,110 @@
                 <EntranceThemeTransition />
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="WideLayout">
-                    <VisualState.StateTriggers>
-                        <!--<AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />-->
-                        <AdaptiveTrigger MinWindowWidth="700" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="NarrowLayout">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="contentSV.Padding" Value="14,0" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <ScrollViewer
-            x:Name="contentSV"
-            Grid.Row="1"
-            Padding="20,0,0,0"
-            IsTabStop="False"
-            UseSystemFocusVisuals="False"
-            VerticalScrollBarVisibility="Auto"
-            VerticalScrollMode="Auto">
+                x:Name="ContentSv"
+                Grid.Row="1"
+                Padding="20,0,0,0"
+                IsTabStop="False"
+                UseSystemFocusVisuals="False"
+                VerticalScrollBarVisibility="Auto"
+                VerticalScrollMode="Auto">
             <StackPanel HorizontalAlignment="Left">
                 <TextBlock
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Margin="0,4,0,0"
-                    FontWeight="Normal"
-                    Text="Theme Mode" />
+                        Margin="0,4,0,0"
+                        FontWeight="Normal"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Theme Mode" />
                 <StackPanel x:Name="ThemePanel" Margin="0,10,0,0">
-                    <RadioButton Tag="Light" Checked="OnThemeRadioButtonChecked" Content="Light" KeyDown="OnThemeRadioButtonKeyDown" />
-                    <RadioButton Tag="Dark" Checked="OnThemeRadioButtonChecked" Content="Dark" />
-                    <RadioButton Tag="Default" Checked="OnThemeRadioButtonChecked" Content="Use system setting" />
+                    <RadioButton
+                            Checked="OnThemeRadioButtonChecked"
+                            Content="Light"
+                            KeyDown="OnThemeRadioButtonKeyDown"
+                            Tag="Light" />
+                    <RadioButton
+                            Checked="OnThemeRadioButtonChecked"
+                            Content="Dark"
+                            Tag="Dark" />
+                    <RadioButton
+                            Checked="OnThemeRadioButtonChecked"
+                            Content="Use system setting"
+                            Tag="Default" />
                 </StackPanel>
 
                 <TextBlock
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Margin="0,40,0,0"
-                    FontWeight="Normal"
-                    Text="Sound" />
+                        Margin="0,40,0,0"
+                        FontWeight="Normal"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Sound" />
                 <StackPanel Margin="0,10,0,0">
-                    <ToggleSwitch x:Name="soundToggle" Header="Controls provide audible feedback" Toggled="soundToggle_Toggled" OffContent="Off" OnContent="On" Margin="0,0,0,4"/>
-                    <CheckBox x:Name="spatialSoundBox" Unchecked="spatialSoundBox_Unchecked" Checked="spatialSoundBox_Checked" IsEnabled="False" Content="Spatial Audio"/>
-                    <TextBlock Text="See the Sound page for how to enable sound in your app!" Style="{ThemeResource CaptionTextBlockStyle}" FontStyle="Italic" Margin="0,8,0,0"/>
+                    <ToggleSwitch
+                            x:Name="SoundToggle"
+                            Margin="0,0,0,4"
+                            Header="Controls provide audible feedback"
+                            OffContent="Off"
+                            OnContent="On"
+                            Toggled="soundToggle_Toggled" />
+                    <CheckBox
+                            x:Name="SpatialSoundBox"
+                            Checked="spatialSoundBox_Checked"
+                            Content="Spatial Audio"
+                            IsEnabled="False"
+                            Unchecked="spatialSoundBox_Unchecked" />
+                    <TextBlock
+                            Margin="0,8,0,0"
+                            FontStyle="Italic"
+                            Style="{ThemeResource CaptionTextBlockStyle}"
+                            Text="See the Sound page for how to enable sound in your app!" />
                 </StackPanel>
 
-                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Margin="0,40,0,0" FontWeight="Normal" Text="Navigation Style" />
-                <RadioButtons x:Name="navigationLocation" Margin="0,10,0,0"
-                        Header="Navigation position" SelectionChanged="navigationLocation_SelectionChanged">
+                <TextBlock
+                        Margin="0,40,0,0"
+                        FontWeight="Normal"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Navigation Style" />
+                <RadioButtons
+                        x:Name="NavigationLocation"
+                        Margin="0,10,0,0"
+                        Header="Navigation position"
+                        SelectionChanged="navigationLocation_SelectionChanged">
                     <!--<RadioButton Content="Left"/>
                     <RadioButton Content="Top"/>-->
                 </RadioButtons>
 
                 <TextBlock
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Margin="0,40,0,0"
-                    FontWeight="Normal"
-                    Text="Screenshots" />
+                        Margin="0,40,0,0"
+                        FontWeight="Normal"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Screenshots" />
                 <StackPanel Margin="0,10,0,0">
-                    <ToggleSwitch x:Name="screenshotModeToggle" Header="Screenshot mode" Toggled="screenshotModeToggle_Toggled" OffContent="Off" OnContent="On" Margin="0,0,0,4"/>
-                    <Button Content="Set screenshot folder" Click="FolderButton_Click" Margin="0,4,0,0"/>
+                    <ToggleSwitch
+                            x:Name="ScreenshotModeToggle"
+                            Margin="0,0,0,4"
+                            Header="Screenshot mode"
+                            OffContent="Off"
+                            OnContent="On"
+                            Toggled="screenshotModeToggle_Toggled" />
+                    <Button
+                            Margin="0,4,0,0"
+                            Click="FolderButton_Click"
+                            Content="Set screenshot folder" />
 
-                    <HyperlinkButton x:Name="screenshotFolderLink" Margin="0,4,0,0" Click="screenshotFolderLink_Click"/>
+                    <HyperlinkButton
+                            x:Name="ScreenshotFolderLink"
+                            Margin="0,4,0,0"
+                            Click="screenshotFolderLink_Click" />
                 </StackPanel>
 
-                <TextBlock
+                <!--<TextBlock
                     Style="{StaticResource TitleTextBlockStyle}"
                     Margin="0,40,0,0"
                     FontWeight="Normal"
                     Text="Teaching Tips" />
                 <StackPanel Margin="0,10,0,0">
                     <Button Content="Reset the &quot;Generate Link to Page&quot; Teaching Tip" Click="OnResetTeachingTipsButtonClick" Margin="0,4,0,0"/>
-                </StackPanel>
+                </StackPanel>-->
 
-                <TextBlock
+                <!--<TextBlock
                     Style="{StaticResource TitleTextBlockStyle}"
                     Margin="0,40,0,0"
                     FontWeight="Normal"
@@ -115,16 +142,16 @@
                     </Paragraph>
                 </RichTextBlock>
                 <TextBlock Margin="0,10,0,0">
-                    Version: 
+                    Version:
                     <Run Text="{x:Bind Version}" FontWeight="Bold" />
-                </TextBlock>
+                </TextBlock>-->
 
-                <TextBlock
+                <!--<TextBlock
                     Style="{StaticResource TitleTextBlockStyle}"
                     Margin="0,40,0,0"
                     FontWeight="Normal"
-                    Text="Found a bug? Want a new sample?" />
-                <RichTextBlock MaxWidth="840" Margin="0,10,0,0" IsTextSelectionEnabled="True">
+                    Text="Found a bug? Want a new sample?" />-->
+                <!--<RichTextBlock MaxWidth="840" Margin="0,10,0,0" IsTextSelectionEnabled="True">
                     <Paragraph>
                         If you have found a bug within the Xaml Controls Gallery, please file an issue on GitHub:
                     </Paragraph>
@@ -144,14 +171,17 @@
                         <Hyperlink NavigateUri="https://github.com/microsoft/microsoft-ui-xaml/issues/new/choose">New WinUI Bug Report</Hyperlink>
                     </Paragraph>
 
-                </RichTextBlock>
+                </RichTextBlock>-->
 
                 <TextBlock
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Margin="0,40,0,0"
-                    FontWeight="Normal"
-                    Text="Dependencies and References" />
-                <RichTextBlock IsTextSelectionEnabled="True" MaxWidth="840" Margin="0,10,0,0">
+                        Margin="0,40,0,0"
+                        FontWeight="Normal"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Dependencies and References" />
+                <RichTextBlock
+                        MaxWidth="840"
+                        Margin="0,10,0,0"
+                        IsTextSelectionEnabled="True">
                     <Paragraph Margin="0,10,0,10">
                         <Hyperlink NavigateUri="https://aka.ms/winui">Windows UI Library</Hyperlink>
                     </Paragraph>
@@ -167,11 +197,14 @@
                 </RichTextBlock>
 
                 <TextBlock
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Margin="0,40,0,0"
-                    FontWeight="Normal"
-                    Text="Companion apps" />
-                <RichTextBlock MaxWidth="840" Margin="0,10,0,0" IsTextSelectionEnabled="True">
+                        Margin="0,40,0,0"
+                        FontWeight="Normal"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Companion apps" />
+                <RichTextBlock
+                        MaxWidth="840"
+                        Margin="0,10,0,0"
+                        IsTextSelectionEnabled="True">
                     <Paragraph>
                         Check out these great companion apps:
                     </Paragraph>
@@ -187,21 +220,46 @@
                 </RichTextBlock>
 
                 <TextBlock
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Margin="0,40,0,0"
-                    FontWeight="Normal"
-                    Text="Disclaimer" />
-                <RichTextBlock MaxWidth="840" Margin="0,10,0,50" IsTextSelectionEnabled="True">
+                        Margin="0,40,0,0"
+                        FontWeight="Normal"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Disclaimer" />
+                <RichTextBlock
+                        MaxWidth="840"
+                        Margin="0,10,0,50"
+                        IsTextSelectionEnabled="True">
                     <Paragraph>THIS CODE AND INFORMATION IS PROVIDED ‘AS IS’ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.</Paragraph>
                     <Paragraph>
-                        <LineBreak /> Copyright (c) Microsoft Corporation. All rights reserved.
+                        <LineBreak />
+                        Copyright (c) Microsoft Corporation. All rights reserved.
                     </Paragraph>
                     <Paragraph Margin="0,10,0,10">
-                        <Hyperlink NavigateUri="https://go.microsoft.com/fwlink/?LinkId=822631">Microsoft Services Agreement</Hyperlink> ,
+                        <Hyperlink NavigateUri="https://go.microsoft.com/fwlink/?LinkId=822631">Microsoft Services Agreement</Hyperlink>
+                        ,
                         <Hyperlink NavigateUri="https://go.microsoft.com/fwlink/?LinkId=521839">Microsoft Privacy Statement</Hyperlink>
                     </Paragraph>
                 </RichTextBlock>
             </StackPanel>
         </ScrollViewer>
+        <!--<VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualState x:Name="WideLayout">
+                        <VisualState.StateTriggers>
+                            -->
+        <!--<AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />-->
+        <!--<AdaptiveTrigger MinWindowWidth="700" />-->
+        <!--
+                        </VisualState.StateTriggers>
+                    </VisualState>
+                    <VisualState x:Name="NarrowLayout">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="contentSV.Padding" Value="14,0" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>-->
     </Grid>
 </Page>

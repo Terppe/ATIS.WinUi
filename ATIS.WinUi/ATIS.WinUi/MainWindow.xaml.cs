@@ -13,11 +13,14 @@ using Microsoft.UI.Xaml.Media;
 
 namespace ATIS.WinUi
 {
+
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        private List<string> _reminderStrList;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,11 +31,20 @@ namespace ATIS.WinUi
 
         private void NaviView_OnItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
+            if (args.InvokedItemContainer.IsSelected)
+            {
+                // Clicked on an item that is already selected,
+                // Avoid navigating to the same page again causing movement.
+                return;
+            }
 
             // First determine if the setting is selected
             if (args.IsSettingsInvoked)
             {
-                ContentFrame.Navigate(typeof(SettingsPage));
+                if (ContentFrame.CurrentSourcePageType != typeof(SettingsPage))
+                {
+                    ContentFrame.Navigate(typeof(SettingsPage));
+                }
             }
             else
             {
@@ -93,18 +105,16 @@ namespace ATIS.WinUi
                 };
         }
 
-        private List<string> _reminderStrList;
 
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
-            {
-                sender.ItemsSource = _reminderStrList.Where(i => i.Contains(sender.Text));
-            }
+            //if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            //{
+            //    sender.ItemsSource = _reminderStrList.Where(i => i.Contains(sender.Text));
+            //}
         }
 
-        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender,
-            AutoSuggestBoxSuggestionChosenEventArgs args)
+        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
             sender.Text = args.SelectedItem.ToString();
         }
@@ -139,7 +149,7 @@ namespace ATIS.WinUi
 
         private void More_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("More ...");
         }
 
     }

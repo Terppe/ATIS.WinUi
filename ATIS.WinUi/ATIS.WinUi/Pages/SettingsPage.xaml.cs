@@ -43,9 +43,9 @@ namespace ATIS.WinUi.Pages
             Loaded += OnSettingsPageLoaded;
 
             if (ElementSoundPlayer.State == ElementSoundPlayerState.On)
-                soundToggle.IsOn = true;
+                SoundToggle.IsOn = true;
             if (ElementSoundPlayer.SpatialAudioMode == ElementSpatialAudioMode.On)
-                spatialSoundBox.IsChecked = true;
+                SpatialSoundBox.IsChecked = true;
             //if (NavigationRootPage.Current.NavigationView.PaneDisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Auto)
             //{
             //    navigationLocation.SelectedIndex = 0;
@@ -55,21 +55,21 @@ namespace ATIS.WinUi.Pages
             //    navigationLocation.SelectedIndex = 1;
             //}
 
-            screenshotModeToggle.IsOn = UIHelper.IsScreenshotMode;
-            screenshotFolderLink.Content = UIHelper.ScreenshotStorageFolder.Path;
+            ScreenshotModeToggle.IsOn = UIHelper.IsScreenshotMode;
+            ScreenshotFolderLink.Content = UIHelper.ScreenshotStorageFolder.Path;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-       //     NavigationRootPage.Current.NavigationView.Header = "Settings";
+            //     NavigationRootPage.Current.NavigationView.Header = "Settings";
         }
 
         private void OnSettingsPageLoaded(object sender, RoutedEventArgs e)
         {
-            var currentTheme = ThemeHelper.RootTheme.ToString();
-            (ThemePanel.Children.Cast<RadioButton>().FirstOrDefault(c => c?.Tag?.ToString() == currentTheme)).IsChecked = true;
+            //var currentTheme = ThemeHelper.RootTheme.ToString();
+            //(ThemePanel.Children.Cast<RadioButton>().FirstOrDefault(c => c?.Tag?.ToString() == currentTheme)).IsChecked = true;
         }
 
         private void OnThemeRadioButtonChecked(object sender, RoutedEventArgs e)
@@ -87,12 +87,12 @@ namespace ATIS.WinUi.Pages
         {
             if (e.Key == VirtualKey.Up)
             {
-      //          NavigationRootPage.Current.PageHeader.Focus(FocusState.Programmatic);
+                //          NavigationRootPage.Current.PageHeader.Focus(FocusState.Programmatic);
             }
         }
         private void spatialSoundBox_Checked(object sender, RoutedEventArgs e)
         {
-            if (soundToggle.IsOn == true)
+            if (SoundToggle.IsOn == true)
             {
                 ElementSoundPlayer.SpatialAudioMode = ElementSpatialAudioMode.On;
             }
@@ -100,15 +100,15 @@ namespace ATIS.WinUi.Pages
 
         private void soundToggle_Toggled(object sender, RoutedEventArgs e)
         {
-            if (soundToggle.IsOn == true)
+            if (SoundToggle.IsOn == true)
             {
-                spatialSoundBox.IsEnabled = true;
+                SpatialSoundBox.IsEnabled = true;
                 ElementSoundPlayer.State = ElementSoundPlayerState.On;
             }
             else
             {
-                spatialSoundBox.IsEnabled = false;
-                spatialSoundBox.IsChecked = false;
+                SpatialSoundBox.IsEnabled = false;
+                SpatialSoundBox.IsChecked = false;
 
                 ElementSoundPlayer.State = ElementSoundPlayerState.Off;
                 ElementSoundPlayer.SpatialAudioMode = ElementSpatialAudioMode.Off;
@@ -117,17 +117,17 @@ namespace ATIS.WinUi.Pages
 
         private void navigationToggle_Toggled(object sender, RoutedEventArgs e)
         {
-    //        NavigationOrientationHelper.IsLeftMode = navigationLocation.SelectedIndex == 0;
+            //        NavigationOrientationHelper.IsLeftMode = navigationLocation.SelectedIndex == 0;
         }
 
         private void screenshotModeToggle_Toggled(object sender, RoutedEventArgs e)
         {
-            UIHelper.IsScreenshotMode = screenshotModeToggle.IsOn;
+            UIHelper.IsScreenshotMode = ScreenshotModeToggle.IsOn;
         }
 
         private void spatialSoundBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (soundToggle.IsOn == true)
+            if (SoundToggle.IsOn == true)
             {
                 ElementSoundPlayer.SpatialAudioMode = ElementSpatialAudioMode.Off;
             }
@@ -135,7 +135,7 @@ namespace ATIS.WinUi.Pages
 
         private void navigationLocation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-    //        NavigationOrientationHelper.IsLeftMode = navigationLocation.SelectedIndex == 0;
+            //        NavigationOrientationHelper.IsLeftMode = navigationLocation.SelectedIndex == 0;
         }
 
         private async void FolderButton_Click(object sender, RoutedEventArgs e)
@@ -148,7 +148,7 @@ namespace ATIS.WinUi.Pages
             if (folder != null)
             {
                 UIHelper.ScreenshotStorageFolder = folder;
-                screenshotFolderLink.Content = UIHelper.ScreenshotStorageFolder.Path;
+                ScreenshotFolderLink.Content = UIHelper.ScreenshotStorageFolder.Path;
             }
         }
 
@@ -159,7 +159,7 @@ namespace ATIS.WinUi.Pages
 
         private void OnResetTeachingTipsButtonClick(object sender, RoutedEventArgs e)
         {
-     //       ProtocolActivationClipboardHelper.ShowCopyLinkTeachingTip = true;
+            //       ProtocolActivationClipboardHelper.ShowCopyLinkTeachingTip = true;
         }
     }
 }
