@@ -21,9 +21,9 @@ namespace ATIS.WinUi.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AccountPage : Page
+    public sealed partial class FoodsPage : Page
     {
-        public AccountPage()
+        public FoodsPage()
         {
             this.InitializeComponent();
         }

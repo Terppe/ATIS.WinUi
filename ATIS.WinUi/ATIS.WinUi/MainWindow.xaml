@@ -10,78 +10,121 @@
         <StackPanel>
             <NavigationView
                 x:Name="NaviView"
+                AlwaysShowHeader="False"
                 Header="ATIS"
                 IsBackButtonVisible="Collapsed"
                 IsSettingsVisible="True"
+                IsTabStop="True"
                 IsTitleBarAutoPaddingEnabled="False"
+                ItemInvoked="NaviView_OnItemInvoked"
                 PaneDisplayMode="Auto"
-                PaneTitle=""
-                SelectionChanged="NaviView_SelectionChanged">
+                PaneTitle="">
                 <NavigationView.MenuItems>
                     <NavigationViewItem
                         Content="Home"
                         Icon="Home"
                         IsSelected="True"
-                        Tag="Home"
                         ToolTipService.ToolTip="Home" />
                     <NavigationViewItemSeparator />
-                    <NavigationViewItemHeader x:Name="MainPagesHeader1" Content="Main pages" />
-                    <NavigationViewItem
-                        Content="Account"
-                        Icon="Contact"
-                        Tag="Account"
-                        ToolTipService.ToolTip="Account" />
-                    <NavigationViewItem
-                        Content="Document"
-                        Icon="Page2"
-                        Tag="Document"
-                        ToolTipService.ToolTip="Document" />
-                    <NavigationViewItem Content="Apps" Tag="apps">
+                    <NavigationViewItemHeader x:Name="MainPagesHeader" Content="Main pages" />
+                    <NavigationViewItem Content="Fishes" ToolTipService.ToolTip="Fishes">
                         <NavigationViewItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB3C;" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
                         </NavigationViewItem.Icon>
                     </NavigationViewItem>
-                    <NavigationViewItem Content="Games" Tag="games">
+                    <NavigationViewItem Content="Plants" ToolTipService.ToolTip="Plants">
                         <NavigationViewItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
                         </NavigationViewItem.Icon>
                     </NavigationViewItem>
-                    <NavigationViewItem
-                        Content="Music"
-                        Icon="Audio"
-                        Tag="music" />
+                    <NavigationViewItem Content="Diseases" ToolTipService.ToolTip="Diseases">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem Content="Foods" ToolTipService.ToolTip="Foods">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem Content="Divs" ToolTipService.ToolTip="Diverse">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem Content="Search" ToolTipService.ToolTip="Search">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE721;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
                     <NavigationViewItem
                         Content="Collections"
-                        Icon="Keyboard"
+                        Icon="Manage"
                         ToolTipService.ToolTip="Collections">
                         <NavigationViewItem.MenuItems>
                             <NavigationViewItem
-                                Content="Notes"
-                                Icon="Page"
-                                Tag="page"
-                                ToolTipService.ToolTip="Notes" />
+                                Content="User"
+                                Icon="OtherUser"
+                                ToolTipService.ToolTip="User" />
                             <NavigationViewItem
-                                Content="Mail"
-                                Icon="Mail"
-                                Tag="mail"
-                                ToolTipService.ToolTip="Mail" />
+                                Content="Admin"
+                                Icon="Admin"
+                                ToolTipService.ToolTip="Admin" />
                         </NavigationViewItem.MenuItems>
                     </NavigationViewItem>
                     <NavigationViewItem x:Name="N" Content="N" />
-                    <NavigationViewItem x:Name="O" Content="O" />
-                    <NavigationViewItem x:Name="P" Content="P" />
+                    <NavigationViewItem
+                        Content="About"
+                        Icon="Page"
+                        ToolTipService.ToolTip="About" />
                 </NavigationView.MenuItems>
-
                 <NavigationView.AutoSuggestBox>
-                    <!--
-                        See AutoSuggestBox documentation for
-                        more info about how to implement search.
-                    -->
-                    <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find" />
+                    <AutoSuggestBox
+                        x:Name="Asb"
+                        PlaceholderText="Search"
+                        QueryIcon="Find"
+                        QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                        SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                        TextChanged="AutoSuggestBox_TextChanged" />
                 </NavigationView.AutoSuggestBox>
+                <NavigationView.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid Margin="24,0,24,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="28"
+                                Text="Header" />
+                            <CommandBar
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Background="{x:Null}"
+                                DefaultLabelPosition="Right">
+                                <AppBarButton Icon="Refresh" Label="Refresh" />
+                            </CommandBar>
+                        </Grid>
+                    </DataTemplate>
+                </NavigationView.HeaderTemplate>
+                <NavigationView.PaneFooter>
+                    <HyperlinkButton
+                        x:Name="MoreInfoBtn"
+                        Margin="12,0"
+                        Click="More_Click"
+                        Content="More" />
+                </NavigationView.PaneFooter>
 
                 <ScrollViewer Margin="0,0,0,12">
-                    <Frame x:Name="ContentFrame" Padding="12,0,12,12" />
+                    <!--<Frame x:Name="ContentFrame" Padding="12,0,12,12" />-->
+                    <Frame
+                        x:Name="ContentFrame"
+                        Padding="12,12,12,24"
+                        IsTabStop="True"
+                        NavigationFailed="ContentFrame_OnNavigationFailed" />
+
                     <!--<Frame x:Name="ContentFrame">
                         <Frame.Background>
                             <ImageBrush ImageSource="Assets/microsoft.png"/>
@@ -92,11 +135,11 @@
                             </TransitionCollection>
                         </Frame.ContentTransitions>
                     </Frame>-->
-                </ScrollViewer>
 
+                </ScrollViewer>
             </NavigationView>
 
-            <VisualStateManager.VisualStateGroups>
+            <!--<VisualStateManager.VisualStateGroups>
                 <VisualStateGroup>
                     <VisualState>
                         <VisualState.StateTriggers>
@@ -104,19 +147,27 @@
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
 
-                            <!--  Remove the next 3 lines for left-only navigation.  -->
+
+            -->
+            <!--  Remove the next 3 lines for left-only navigation.  -->
+            <!--
+
 
                             <Setter Target="NavView.PaneDisplayMode" Value="LeftCompact" />
-                            <Setter Target="NavViewSearchBox.Width" Value="200" />
+                            <Setter Target="NavViewSearchBox.Width" Value="150" />
                             <Setter Target="MainPagesHeader.Visibility" Value="Collapsed" />
 
-                            <!--  Leave the next line for left-only navigation.  -->
 
-                            <Setter Target="ContentFrame.Padding" Value="24,0,24,24" />
+            -->
+            <!--  Leave the next line for left-only navigation.  -->
+
+
+            <!--<Setter Target="ContentFrame.Padding" Value="24,0,24,24" />-->
+            <!--
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
+            </VisualStateManager.VisualStateGroups>-->
         </StackPanel>
 
         <StackPanel
@@ -126,7 +177,7 @@
             <Button x:Name="MyButton" Click="Login_Click">Login</Button>
             <ContentDialog x:Name="ContentDialog" CloseButtonText="Close">
                 <StackPanel>
-                    <!--<Grid xmlns:src="using:LoginView" 
+                    <!--<Grid xmlns:src="using:LoginView"
                           Margin="0,50,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -138,132 +189,6 @@
                 </StackPanel>
             </ContentDialog>
         </StackPanel>
-
-        <!--<StackPanel>
-            <muxc:NavigationView
-                x:Name="NavView"
-                BackRequested="NavView_BackRequested"
-                ItemInvoked="NavView_ItemInvoked"
-                Loaded="NavView_Loaded">
-                <muxc:NavigationView.MenuItems>
-                    <muxc:NavigationViewItem
-                        Content="Home"
-                        Icon="Home"
-                        Tag="home" />
-                    <muxc:NavigationViewItemSeparator />
-                    <muxc:NavigationViewItemHeader x:Name="MainPagesHeader1" Content="Main pages" />
-                    <muxc:NavigationViewItem Content="Apps" Tag="apps">
-                        <muxc:NavigationViewItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB3C;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem Content="Games" Tag="games">
-                        <muxc:NavigationViewItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem
-                        Content="Music"
-                        Icon="Audio"
-                        Tag="music" />
-                </muxc:NavigationView.MenuItems>
-
-                <muxc:NavigationView.AutoSuggestBox>
-        -->
-        <!--
-            See AutoSuggestBox documentation for
-            more info about how to implement search.
-        -->
-        <!--
-                    <AutoSuggestBox x:Name="NavViewSearchBox1" QueryIcon="Find" />
-                </muxc:NavigationView.AutoSuggestBox>
-
-                <ScrollViewer>
-                    <Frame
-                        x:Name="ContentFrame1"
-                        Padding="12,0,12,24"
-                        IsTabStop="True"
-                        NavigationFailed="ContentFrame_NavigationFailed" />
-                </ScrollViewer>
-            </muxc:NavigationView>
-
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup>
-                    <VisualState>
-                        <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="{x:Bind NavViewCompactModeThresholdWidth}" />
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-        -->
-        <!--  Remove the next 3 lines for left-only navigation.  -->
-        <!--
-                            <Setter Target="NavView.PaneDisplayMode" Value="Top" />
-                            <Setter Target="NavViewSearchBox.Width" Value="200" />
-                            <Setter Target="MainPagesHeader.Visibility" Value="Collapsed" />
-        -->
-        <!--  Leave the next line for left-only navigation.  -->
-        <!--
-                            <Setter Target="ContentFrame.Padding" Value="24,0,24,24" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-        </StackPanel>-->
-
-        <!--  ok  -->
-        <StackPanel>
-            <!--<NavigationView x:Name="NavigationViewControl" IsBackButtonVisible="Collapsed">
-                <NavigationView.MenuItems>
-                    <NavigationViewItem x:Name="A" Content="A" />
-                    <NavigationViewItem x:Name="B" Content="B" />
-                    <NavigationViewItem x:Name="C" Content="C" />
-                    <NavigationViewItem
-                        Content="Home"
-                        Icon="Home"
-                        Tag="home" />
-                    <NavigationViewItemSeparator />
-                    <NavigationViewItemHeader x:Name="MainPagesHeader" Content="Main pages" />
-                    <NavigationViewItem Content="Apps" Tag="apps">
-                        <NavigationViewItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB3C;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem Content="Games" Tag="games">
-                        <NavigationViewItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem
-                        Content="Music"
-                        Icon="Audio"
-                        Tag="music" />
-                    <NavigationViewItem x:Name="N" Content="N" />
-                    <NavigationViewItem x:Name="O" Content="O" />
-                    <NavigationViewItem x:Name="P" Content="P" />
-                    <NavigationViewItem x:Name="Q" Content="Q" />
-                    <NavigationViewItem x:Name="R" Content="R" />
-                </NavigationView.MenuItems>
-
-                <NavigationView.AutoSuggestBox>
-            -->
-            <!--
-                See AutoSuggestBox documentation for
-                more info about how to implement search.
-            -->
-            <!--
-                    <AutoSuggestBox x:Name="NavViewSearchBox" QueryIcon="Find" />
-                </NavigationView.AutoSuggestBox>
-                <ScrollViewer>
-                    <Frame
-                        x:Name="ContentFrame"
-                        Padding="12,0,12,24"
-                        IsTabStop="True"
-                        NavigationFailed="ContentFrame_NavigationFailed" />
-                </ScrollViewer>
-            </NavigationView>-->
-
-        </StackPanel>
-
 
         <StackPanel>
             <!--  Validation Panel  -->

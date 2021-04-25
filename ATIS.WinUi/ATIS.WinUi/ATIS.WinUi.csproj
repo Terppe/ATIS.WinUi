@@ -27,28 +27,37 @@
     <Page Update="Assets\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Pages\AccountPage.xaml">
+    <Page Update="Pages\AboutPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Pages\BlankPage.xaml">
+    <Page Update="Pages\AdminPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Pages\DocumentPage.xaml">
+    <Page Update="Pages\DiseasesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Pages\GamePage.xaml">
+    <Page Update="Pages\DivsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\FishesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\FoodsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Pages\HomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Pages\MailPage.xaml">
+    <Page Update="Pages\PlantsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Pages\MusicPage.xaml">
+    <Page Update="Pages\SearchPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Pages\NotesPage.xaml">
+    <Page Update="Pages\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\UserPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="UserControls\LogInView.xaml">
