@@ -3,11 +3,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helper="using:ATIS.WinUi.Helper"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:ATIS.WinUi.ViewModels"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
+    <Page.DataContext>
+        <viewModels:HomeViewModel />
+    </Page.DataContext>
+
 
     <ScrollViewer>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -23,7 +29,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -31,39 +37,42 @@
                 <TextBlock x:Name="LbVersion" Text="Version" />
             </Grid>
 
-            <Grid
+            <FlipView
                 Grid.Row="1"
-                Grid.Column="1"
-                MinHeight="{StaticResource TileHeight}"
-                Margin="6"
-                Background="DarkGray" />
-            <Grid
-                Grid.Row="1"
-                Grid.Column="2"
-                MinHeight="{StaticResource TileHeight}"
-                Margin="6"
-                Background="LightGray" />
-            <Grid
-                Grid.Row="2"
-                Grid.Column="1"
-                MinHeight="{StaticResource TileHeight}"
-                Margin="6"
-                Background="LightGray" />
-            <Grid
-                Grid.Row="2"
-                Grid.Column="2"
-                MinHeight="{StaticResource TileHeight}"
-                Margin="6"
-                Background="DarkGray" />
-            <Grid
-                x:Name="SourceElement"
-                Grid.Row="1"
-                Grid.RowSpan="2"
                 Grid.Column="0"
-                MinWidth="250"
+                Width="1000"
+                Height="400"
+                Margin="5">
+                <Image
+                    AutomationProperties.Name="Cliff"
+                    Source="ms-appx:///Assets/Aquarium.jpg"
+                    Stretch="UniformToFill" />
+                <Image
+                    AutomationProperties.Name="Grapes"
+                    Source="ms-appx:///Assets/Aquarium2.jpg"
+                    Stretch="UniformToFill" />
+                <Image
+                    AutomationProperties.Name="Rainier"
+                    Source="ms-appx:///Assets/Aquarium3.png"
+                    Stretch="Fill" />
+                <Image
+                    AutomationProperties.Name="Valley"
+                    Source="ms-appx:///Assets/Nilpferd.jpg"
+                    Stretch="UniformToFill" />
+                <FlipView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </FlipView.ItemsPanel>
+            </FlipView>
+
+            <Grid
+                Grid.Row="2"
+                Grid.Column="0"
                 MinHeight="{StaticResource TileHeight}"
                 Margin="5"
-                Background="{ThemeResource SystemControlBackgroundAccentBrush}" />
+                Background="Khaki" />
+
             <Grid
                 Grid.Row="3"
                 Grid.Column="0"
@@ -89,27 +98,4 @@
             </Grid>
         </Grid>
     </ScrollViewer>
-
-    <!--<Grid>
-        <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="72"
-            Text="HomePage" />
-
-        <TextBlock x:Name="LbVersion" Text="Version" />
-
-        <StackPanel
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <Button x:Name="MyButton" Click="MyButton_Click">Click Me</Button>
-            <ContentDialog x:Name="ContentDialog" CloseButtonText="Close">
-                <StackPanel>
-                    <TextBlock Name="CdTextBlock" />
-                </StackPanel>
-            </ContentDialog>
-        </StackPanel>
-
-    </Grid>-->
 </Page>

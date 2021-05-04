@@ -19,7 +19,7 @@ namespace ATIS.WinUi
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        private List<string> _reminderStrList;
+      //  private List<string> _reminderStrList;
 
         public MainWindow()
         {
