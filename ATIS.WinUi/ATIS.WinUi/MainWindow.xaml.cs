@@ -19,7 +19,7 @@ namespace ATIS.WinUi
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-      //  private List<string> _reminderStrList;
+        //  private List<string> _reminderStrList;
 
         public MainWindow()
         {
@@ -80,6 +80,21 @@ namespace ATIS.WinUi
                         break;
                     case "Admin":
                         ContentFrame.Navigate(typeof(AdminPage));
+                        break;
+                    case "Regnum":
+                        ContentFrame.Navigate(typeof(D03RegnumsPage));
+                        break;
+                    case "Phylum":
+                        ContentFrame.Navigate(typeof(D06PhylumsPage));
+                        break;
+                    case "Subphylum":
+                        ContentFrame.Navigate(typeof(D12SubphylumsPage));
+                        break;
+                    case "Superclass":
+                        ContentFrame.Navigate(typeof(D18SuperclassesPage));
+                        break;
+                    case "Login":
+                        ContentFrame.Navigate(typeof(LoginPage));
                         break;
                 }
             }

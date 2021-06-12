@@ -70,14 +70,32 @@
                                 Content="Admin"
                                 Icon="Admin"
                                 ToolTipService.ToolTip="Admin" />
+                            <NavigationViewItem
+                                Content="Regnum"
+                                Icon="Admin"
+                                ToolTipService.ToolTip="Regnum" />
+                            <NavigationViewItem
+                                Content="Phylum"
+                                Icon="Admin"
+                                ToolTipService.ToolTip="Phylum" />
+                            <NavigationViewItem
+                                Content="Subphylum"
+                                Icon="Admin"
+                                ToolTipService.ToolTip="Subphylum" />
+                            <NavigationViewItem
+                                Content="Superclass"
+                                Icon="Admin"
+                                ToolTipService.ToolTip="Superclass" />
                         </NavigationViewItem.MenuItems>
                     </NavigationViewItem>
                     <NavigationViewItem x:Name="N" Content="N" />
                     <NavigationViewItem
-                        Content="About"
+                        Content="Login"
                         Icon="Page"
-                        ToolTipService.ToolTip="About" />
+                        ToolTipService.ToolTip="Login">
+                    </NavigationViewItem>
                 </NavigationView.MenuItems>
+
                 <NavigationView.AutoSuggestBox>
                     <AutoSuggestBox
                         x:Name="Asb"
@@ -198,7 +216,7 @@
                 Message="I think we need a recount ..."
                 Severity="Warning" />-->
             <!--  Office 365 Status Bar  -->
-            <!--<InfoBar
+            <InfoBar
                 Title="UPDATES ARE AVAILABLE"
                 IsOpen="True"
                 Message="Do you want to update this app right now? It will close and reopen."
@@ -206,7 +224,7 @@
                 <InfoBar.ActionButton>
                     <Button Content="Update" />
                 </InfoBar.ActionButton>
-            </InfoBar>-->
+            </InfoBar>
             <!--  Visual Studio Status Bar  -->
             <!--<InfoBar
                 Title="Performance report"
@@ -252,11 +270,11 @@
                 </InfoBar.ActionButton>
             </InfoBar>-->
             <!--  Toast (with ignored customizations)  -->
-            <InfoBar
-                Title="WOOHOO"
+            <!--<InfoBar
+                Title="WOOHOO" 
                 Height="120"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Center"
+                VerticalAlignment="Bottom"
                 CornerRadius="8"
                 IsOpen="True"
                 Message="Data has been saved properly."
@@ -267,7 +285,7 @@
                         Foreground="DimGray"
                         Text="Keep up the good work ..." />
                 </InfoBar.Content>
-            </InfoBar>
+            </InfoBar>-->
         </StackPanel>
     </Grid>
 </Window>
