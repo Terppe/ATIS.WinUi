@@ -26,6 +26,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0-preview.4.21253.7" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0-preview.4.21253.7" />
     <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview4.210210.4" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0-preview.4.21253.7" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
