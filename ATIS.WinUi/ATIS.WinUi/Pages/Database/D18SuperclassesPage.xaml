@@ -1,0 +1,356 @@
+﻿<Page
+    x:Class="ATIS.WinUi.Pages.Database.D18SuperclassesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:contacts="using:Windows.ApplicationModel.Contacts"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dataAnnotations="using:System.ComponentModel.DataAnnotations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:ATIS.WinUi.DataLayer.Models"
+    xmlns:database="using:ATIS.WinUi.ViewModels.Database"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <!--  d:DataContext="{d:DesignInstance Type=viewmodels:RegnumsViewModel}"  -->
+
+    <Page.DataContext>
+        <database:D03RegnumsViewModel x:Name="RegnumsViewModel" />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <CollectionViewSource x:Key="RegnumsList">
+            <CollectionViewSource.Source>
+                <Binding Path="Tbl03RegnumsList" />
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="PhylumsList">
+            <CollectionViewSource.Source>
+                <Binding Path="Tbl06PhylumsList" />
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <!--<DataTemplate x:Key="RegnumItemTemplate" x:DataType="viewmodels:RegnumsViewModel">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    <TextBlock Margin="0,0,0,4" Style="{StaticResource TitleTextBlockStyle}">
+                        <TextBlock.Text>
+                            <Binding Path="RegnumId" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">
+                        <TextBlock.Text>
+                            <Binding Path="RegnumName" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="2"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">
+                        <TextBlock.Text>
+                            <Binding Path="Subregnum" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>-->
+        <!--<DataTemplate x:Key="RegnumListViewTemplate" x:DataType="viewmodels:RegnumsViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    x:Phase="1"
+                    Style="{ThemeResource BaseTextBlockStyle}"
+                    Text="{x:Bind Author}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="12,0,0,6"
+                    x:Phase="2"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Text="{x:Bind AuthorYear}" />
+            </Grid>
+        </DataTemplate>-->
+        <!--<DataTemplate x:Key="RegnumListViewTemplate" x:DataType="viewmodels:RegnumsViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock
+                        Margin="12,0,0,6"
+                        x:Phase="2"
+                        Style="{ThemeResource BodyTextBlockStyle}">
+                        <TextBlock.Text>
+                            <Binding Path="Author" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock
+                        Margin="12,0,0,6"
+                        x:Phase="2"
+                        Style="{ThemeResource BodyTextBlockStyle}">
+                        <TextBlock.Text>
+                            <Binding Path="AuthorYear" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>-->
+    </Page.Resources>
+
+    <!--<Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Compact">
+            <AppBarButton
+                x:Name="AddAppBarButton"
+                Command="{x:Bind RegnumsViewModel.GetRegnumsByNameOrIdCommand, Mode=OneWay}"
+                Icon="Add"
+                IsCompact="True"
+                Label="New" />
+        </CommandBar>
+    </Page.BottomAppBar>-->
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
+
+        <!--<StackPanel x:Name="MainGrid" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+            <Button Command="{Binding OkCommand}" Content="Ok" />
+        </StackPanel>-->
+
+
+
+        <TabView TabWidthMode="SizeToContent">
+            <TabView.TabStripHeader>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+                    <!--<TextBox PlaceholderText="Regnum">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="SearchRegnumName"
+                                UpdateSourceTrigger="PropertyChanged" />
+                        </TextBox.Text>
+                    </TextBox>-->
+
+                    <AutoSuggestBox
+                        x:Name="AutoSuggestBox"
+                        Width="150"
+                        Margin="2"
+                        VerticalAlignment="Center"
+                        PlaceholderText="Regnum"
+                        QueryIcon="Find"
+                        TextChanged="AutoSuggestBox_OnTextChanged">
+                        <!--<AutoSuggestBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="SearchRegnumName"
+                                UpdateSourceTrigger="PropertyChanged" />
+                        </AutoSuggestBox.Text>-->
+                    </AutoSuggestBox>
+
+                    <Button
+                        Width="60"
+                        Margin="2"
+                        Command="{x:Bind RegnumsViewModel.GetRegnumsByNameOrIdCommand, Mode=OneWay}"
+                        Content="Search"
+                        CornerRadius="15" />
+                    <Button
+                        Width="60"
+                        Margin="2"
+                        Command="{x:Bind RegnumsViewModel.AddRegnumCommand, Mode=OneWay}"
+                        Content="Add"
+                        CornerRadius="15" />
+                </StackPanel>
+            </TabView.TabStripHeader>
+            <TabView.TabItems>
+                <TabViewItem Header="Regnum">
+                    <TabViewItem.IconSource>
+                        <SymbolIconSource Symbol="Filter" />
+                    </TabViewItem.IconSource>
+                    <ScrollViewer>
+                        <ListView
+                            x:Name="RegnumsList3"
+                            Width="Auto"
+                            Height="400"
+                            MinWidth="400"
+                            HorizontalAlignment="Left"
+                            BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                            BorderThickness="1"
+                            ItemsSource="{Binding Source={StaticResource RegnumsList}}"
+                            SelectionMode="Single">
+                            <ListView.SelectedItem>
+                                <Binding Path="(Selector.SelectedItem)" />
+                            </ListView.SelectedItem>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:Name="RegnumDataTemplate" x:DataType="models:Tbl03Regnum">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse
+                                            x:Name="Ellipse"
+                                            Grid.RowSpan="2"
+                                            Width="32"
+                                            Height="32"
+                                            Margin="6"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Margin="12,6,0,0"
+                                            x:Phase="1"
+                                            Style="{ThemeResource BaseTextBlockStyle}"
+                                            Text="{x:Bind RegnumId}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="12,0,0,6"
+                                            x:Phase="2"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind RegnumName}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="112,0,0,6"
+                                            x:Phase="3"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind Subregnum}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="212,0,0,6"
+                                            x:Phase="4"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind Author}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="312,0,0,6"
+                                            x:Phase="5"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind AuthorYear}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                </TabViewItem>
+            </TabView.TabItems>
+        </TabView>
+        <TabView Grid.Row="1" Grid.Column="0">
+            <TabView.TabItems>
+                <TabViewItem Header="Phylum">
+                    <TabViewItem.IconSource>
+                        <SymbolIconSource Symbol="Filter" />
+                    </TabViewItem.IconSource>
+                    <ScrollViewer>
+                        <ListView
+                            x:Name="PhylumsList3"
+                            Width="Auto"
+                            Height="400"
+                            MinWidth="400"
+                            HorizontalAlignment="Left"
+                            BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                            BorderThickness="1"
+                            ItemsSource="{Binding Source={StaticResource PhylumsList}}"
+                            SelectionMode="Single">
+                            <ListView.SelectedItem>
+                                <Binding Path="(Selector.SelectedItem)" />
+                            </ListView.SelectedItem>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:Name="PhylumDataTemplate" x:DataType="models:Tbl06Phylum">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse
+                                            x:Name="Ellipse"
+                                            Grid.RowSpan="2"
+                                            Width="32"
+                                            Height="32"
+                                            Margin="6"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Margin="12,6,0,0"
+                                            x:Phase="1"
+                                            Style="{ThemeResource BaseTextBlockStyle}"
+                                            Text="{x:Bind PhylumId}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="12,0,0,6"
+                                            x:Phase="2"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind PhylumName}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="212,0,0,6"
+                                            x:Phase="4"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind Author}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="312,0,0,6"
+                                            x:Phase="5"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind AuthorYear}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                </TabViewItem>
+            </TabView.TabItems>
+
+        </TabView>
+    </Grid>
+</Page>

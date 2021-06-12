@@ -1,0 +1,1691 @@
+﻿<Page
+    x:Class="ATIS.WinUi.Pages.Database.D03RegnumsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:database="using:ATIS.WinUi.ViewModels.Database"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:ATIS.WinUi.DataLayer.Models"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <!--  d:DataContext="{d:DesignInstance Type=viewmodels:RegnumsViewModel}"  -->
+
+    <Page.DataContext>
+        <database:D03RegnumsViewModel x:Name="D03RegnumsViewModel" />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <CollectionViewSource x:Key="RegnumsList">
+            <CollectionViewSource.Source>
+                <Binding Path="Tbl03RegnumsList" />
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="PhylumsList">
+            <CollectionViewSource.Source>
+                <Binding Path="Tbl06PhylumsList" />
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="DivisionsList">
+            <CollectionViewSource.Source>
+                <Binding Path="Tbl09DivisionsList" />
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="RefExpertsList">
+            <CollectionViewSource.Source>
+                <Binding Path="Tbl90ReferenceExpertsList" />
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="RefSourcesList">
+            <CollectionViewSource.Source>
+                <Binding Path="Tbl90ReferenceSourcesList" />
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="RefAuthorsList">
+            <CollectionViewSource.Source>
+                <Binding Path="Tbl90ReferenceAuthorsList" />
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="CommentsList">
+            <CollectionViewSource.Source>
+                <Binding Path="Tbl93CommentsList" />
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+
+        <DataTemplate x:Key="RegnumButtonItemTemplate" x:DataType="database:D03RegnumsViewModel">
+            <StackPanel>
+                <Button
+                    Width="60"
+                    Margin="2"
+                    Command="{x:Bind AddRegnumCommand, Mode=OneWay}"
+                    Content="Add"
+                    CornerRadius="15" />
+                <Button
+                    Width="60"
+                    Margin="2"
+                    Command="{x:Bind SaveRegnumCommand, Mode=OneWay}"
+                    Content="Save"
+                    CornerRadius="15" />
+                <Button
+                    Width="60"
+                    Margin="2"
+                    Command="{x:Bind CopyRegnumCommand, Mode=OneWay}"
+                    Content="Copy"
+                    CornerRadius="15" />
+                <Button
+                    Width="60"
+                    Margin="2"
+                    Command="{x:Bind DeleteRegnumCommand, Mode=OneWay}"
+                    Content="Delete"
+                    CornerRadius="15" />
+            </StackPanel>
+
+        </DataTemplate>
+        <DataTemplate x:Key="RegnumItemTemplate" x:DataType="models:Tbl03Regnum">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Ellipse
+                    x:Name="Ellipse"
+                    Grid.RowSpan="2"
+                    Width="32"
+                    Height="32"
+                    Margin="6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind RegnumId}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="12,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind RegnumName}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="112,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind Subregnum}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="212,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind Author}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="312,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind AuthorYear}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="RegnumDetailTemplate" x:DataType="models:Tbl03Regnum">
+            <StackPanel>
+                <!--<StackPanel.Resources>
+                    <DataTemplate x:Key="oddNumberTemplate" x:DataType="database:D03RegnumsViewModel">
+                        <Grid>
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind AddRegnumCommand, Mode=OneWay}"
+                                Content="Add"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind SaveRegnumCommand, Mode=OneWay}"
+                                Content="Save"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind CopyRegnumCommand, Mode=OneWay}"
+                                Content="Copy"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind DeleteRegnumCommand, Mode=OneWay}"
+                                Content="Delete"
+                                CornerRadius="15" />
+                        </Grid>
+                    </DataTemplate>
+                </StackPanel.Resources>-->
+                <ScrollViewer
+                    Name="ForegroundElement"
+                    HorizontalAlignment="Stretch"
+                    IsTabStop="True"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="{StaticResource MediumLeftTopRightBottomMargin}" HorizontalAlignment="Left">
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="RegnumID" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind RegnumId}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="RegnumName" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind RegnumName, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Subregnum" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Subregnum, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Synonym" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Synonym, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Autor" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Author, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Jahr" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind AuthorYear, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Deutscher Name" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind GerName, Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Englischer Name" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind EngName, Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 1" />
+                            <TextBlock
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 1"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 2" />
+                            <TextBlock
+                                Margin="{StaticResource MediumBottomMargin}"
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 2"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="PhylumItemTemplate" x:DataType="models:Tbl06Phylum">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Ellipse
+                    x:Name="Ellipse"
+                    Grid.RowSpan="2"
+                    Width="32"
+                    Height="32"
+                    Margin="6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind PhylumId}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="12,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind PhylumName}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="212,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind Author}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="312,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind AuthorYear}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="PhylumDetailTemplate" x:DataType="models:Tbl06Phylum">
+            <StackPanel>
+                <!--<StackPanel.Resources>
+                    <DataTemplate x:Key="oddNumberTemplate" x:DataType="database:D06PhylumsViewModel">
+                        <Grid>
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind AddPhylumCommand, Mode=OneWay}"
+                                Content="Add"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind SavePhylumCommand, Mode=OneWay}"
+                                Content="Save"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind CopyPhylumCommand, Mode=OneWay}"
+                                Content="Copy"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind DeletePhylumCommand, Mode=OneWay}"
+                                Content="Delete"
+                                CornerRadius="15" />
+                        </Grid>
+                    </DataTemplate>
+                </StackPanel.Resources>-->
+                <ScrollViewer
+                    Name="ForegroundElement"
+                    HorizontalAlignment="Stretch"
+                    IsTabStop="True"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="{StaticResource MediumLeftTopRightBottomMargin}" HorizontalAlignment="Left">
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="PhylumID" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind PhylumId}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="PhylumName" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind PhylumName, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Synonym" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Synonym, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Autor" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Author, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Jahr" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind AuthorYear, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Deutscher Name" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind GerName, Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Englischer Name" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind EngName, Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 1" />
+                            <TextBlock
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 1"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 2" />
+                            <TextBlock
+                                Margin="{StaticResource MediumBottomMargin}"
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 2"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DivisionItemTemplate" x:DataType="models:Tbl09Division">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Ellipse
+                    x:Name="Ellipse"
+                    Grid.RowSpan="2"
+                    Width="32"
+                    Height="32"
+                    Margin="6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind DivisionId}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="12,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind DivisionName}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="212,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind Author}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="312,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind AuthorYear}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="DivisionDetailTemplate" x:DataType="models:Tbl09Division">
+            <StackPanel>
+                <!--<StackPanel.Resources>
+                    <DataTemplate x:Key="oddNumberTemplate" x:DataType="database:D06PhylumsViewModel">
+                        <Grid>
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind AddPhylumCommand, Mode=OneWay}"
+                                Content="Add"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind SavePhylumCommand, Mode=OneWay}"
+                                Content="Save"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind CopyPhylumCommand, Mode=OneWay}"
+                                Content="Copy"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind DeletePhylumCommand, Mode=OneWay}"
+                                Content="Delete"
+                                CornerRadius="15" />
+                        </Grid>
+                    </DataTemplate>
+                </StackPanel.Resources>-->
+                <ScrollViewer
+                    Name="ForegroundElement"
+                    HorizontalAlignment="Stretch"
+                    IsTabStop="True"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="{StaticResource MediumLeftTopRightBottomMargin}" HorizontalAlignment="Left">
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="DivisionID" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind DivisionId}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="DivisionName" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind DivisionName, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Synonym" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Synonym, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Autor" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Author, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Jahr" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind AuthorYear, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Deutscher Name" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind GerName, Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Englischer Name" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind EngName, Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 1" />
+                            <TextBlock
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 1"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 2" />
+                            <TextBlock
+                                Margin="{StaticResource MediumBottomMargin}"
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 2"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="RefExpertItemTemplate" x:DataType="models:Tbl90Reference">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Ellipse
+                    x:Name="Ellipse"
+                    Grid.RowSpan="2"
+                    Width="32"
+                    Height="32"
+                    Margin="6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind ReferenceId}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind Tbl90RefExperts.RefExpertId}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="12,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind Tbl90RefExperts.RefExpertName}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="RefExpertDetailTemplate" x:DataType="models:Tbl90Reference">
+            <StackPanel>
+                <!--<StackPanel.Resources>
+                    <DataTemplate x:Key="oddNumberTemplate" x:DataType="database:D06PhylumsViewModel">
+                        <Grid>
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind AddPhylumCommand, Mode=OneWay}"
+                                Content="Add"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind SavePhylumCommand, Mode=OneWay}"
+                                Content="Save"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind CopyPhylumCommand, Mode=OneWay}"
+                                Content="Copy"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind DeletePhylumCommand, Mode=OneWay}"
+                                Content="Delete"
+                                CornerRadius="15" />
+                        </Grid>
+                    </DataTemplate>
+                </StackPanel.Resources>-->
+                <ScrollViewer
+                    Name="ForegroundElement"
+                    HorizontalAlignment="Stretch"
+                    IsTabStop="True"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="{StaticResource MediumLeftTopRightBottomMargin}" HorizontalAlignment="Left">
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="ReferenceID" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind ReferenceId}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="RefExpertId" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Tbl90RefExperts.RefExpertId, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="RefExpertName" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Tbl90RefExperts.RefExpertName, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Valid" />
+                            <CheckBox Margin="{StaticResource SmallLeftMargin}" IsChecked="{x:Bind Valid, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="ValidYear" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind ValidYear, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Info" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Info, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 1" />
+                            <TextBlock
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 1"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 2" />
+                            <TextBlock
+                                Margin="{StaticResource MediumBottomMargin}"
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 2"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="RefSourceItemTemplate" x:DataType="models:Tbl90Reference">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Ellipse
+                    x:Name="Ellipse"
+                    Grid.RowSpan="2"
+                    Width="32"
+                    Height="32"
+                    Margin="6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind ReferenceId}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind Tbl90RefSources.RefSourceId}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="12,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind Tbl90RefSources.RefSourceName}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="RefSourceDetailTemplate" x:DataType="models:Tbl90Reference">
+            <StackPanel>
+                <!--<StackPanel.Resources>
+                    <DataTemplate x:Key="oddNumberTemplate" x:DataType="database:D06PhylumsViewModel">
+                        <Grid>
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind AddPhylumCommand, Mode=OneWay}"
+                                Content="Add"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind SavePhylumCommand, Mode=OneWay}"
+                                Content="Save"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind CopyPhylumCommand, Mode=OneWay}"
+                                Content="Copy"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind DeletePhylumCommand, Mode=OneWay}"
+                                Content="Delete"
+                                CornerRadius="15" />
+                        </Grid>
+                    </DataTemplate>
+                </StackPanel.Resources>-->
+                <ScrollViewer
+                    Name="ForegroundElement"
+                    HorizontalAlignment="Stretch"
+                    IsTabStop="True"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="{StaticResource MediumLeftTopRightBottomMargin}" HorizontalAlignment="Left">
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="ReferenceID" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind ReferenceId}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="RefSourceID" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Tbl90RefSources.RefSourceId, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="RefSourceName" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Tbl90RefSources.RefSourceName, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Valid" />
+                            <CheckBox Margin="{StaticResource SmallLeftMargin}" IsChecked="{x:Bind Valid, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="ValidYear" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind ValidYear, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Info" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Info, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Memo" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Memo, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 1" />
+                            <TextBlock
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 1"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 2" />
+                            <TextBlock
+                                Margin="{StaticResource MediumBottomMargin}"
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 2"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="RefAuthorItemTemplate" x:DataType="models:Tbl90Reference">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Ellipse
+                    x:Name="Ellipse"
+                    Grid.RowSpan="2"
+                    Width="32"
+                    Height="32"
+                    Margin="6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind ReferenceId}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind Tbl90RefAuthors.RefAuthorId}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="12,0,0,6"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind Tbl90RefAuthors.RefAuthorName}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="RefAuthorDetailTemplate" x:DataType="models:Tbl90Reference">
+            <StackPanel>
+                <!--<StackPanel.Resources>
+                    <DataTemplate x:Key="oddNumberTemplate" x:DataType="database:D06PhylumsViewModel">
+                        <Grid>
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind AddPhylumCommand, Mode=OneWay}"
+                                Content="Add"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind SavePhylumCommand, Mode=OneWay}"
+                                Content="Save"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind CopyPhylumCommand, Mode=OneWay}"
+                                Content="Copy"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind DeletePhylumCommand, Mode=OneWay}"
+                                Content="Delete"
+                                CornerRadius="15" />
+                        </Grid>
+                    </DataTemplate>
+                </StackPanel.Resources>-->
+                <ScrollViewer
+                    Name="ForegroundElement"
+                    HorizontalAlignment="Stretch"
+                    IsTabStop="True"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="{StaticResource MediumLeftTopRightBottomMargin}" HorizontalAlignment="Left">
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="ReferenceID" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind ReferenceId}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="RefAuthorID" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Tbl90RefAuthors.RefAuthorId, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="RefSourceName" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Tbl90RefAuthors.RefAuthorName, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="BookName" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Tbl90RefAuthors.BookName, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Page" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Tbl90RefAuthors.Page1, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Valid" />
+                            <CheckBox Margin="{StaticResource SmallLeftMargin}" IsChecked="{x:Bind Valid, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="ValidYear" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind ValidYear, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Info" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Info, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Memo" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Memo, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 1" />
+                            <TextBlock
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 1"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 2" />
+                            <TextBlock
+                                Margin="{StaticResource MediumBottomMargin}"
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 2"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="CommentItemTemplate" x:DataType="models:Tbl93Comment">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Ellipse
+                    x:Name="Ellipse"
+                    Grid.RowSpan="2"
+                    Width="32"
+                    Height="32"
+                    Margin="6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="12,6,0,0"
+                    Style="{StaticResource ListTitleStyle}"
+                    Text="{x:Bind CommentId}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="CommentDetailTemplate" x:DataType="models:Tbl93Comment">
+            <StackPanel>
+                <!--<StackPanel.Resources>
+                    <DataTemplate x:Key="oddNumberTemplate" x:DataType="database:D06PhylumsViewModel">
+                        <Grid>
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind AddPhylumCommand, Mode=OneWay}"
+                                Content="Add"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind SavePhylumCommand, Mode=OneWay}"
+                                Content="Save"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind CopyPhylumCommand, Mode=OneWay}"
+                                Content="Copy"
+                                CornerRadius="15" />
+                            <Button
+                                Width="60"
+                                Margin="2"
+                                Command="{x:Bind DeletePhylumCommand, Mode=OneWay}"
+                                Content="Delete"
+                                CornerRadius="15" />
+                        </Grid>
+                    </DataTemplate>
+                </StackPanel.Resources>-->
+                <ScrollViewer
+                    Name="ForegroundElement"
+                    HorizontalAlignment="Stretch"
+                    IsTabStop="True"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="{StaticResource MediumLeftTopRightBottomMargin}" HorizontalAlignment="Left">
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="CommentID" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="{x:Bind CommentId}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Valid" />
+                            <CheckBox Margin="{StaticResource SmallLeftMargin}" IsChecked="{x:Bind Valid, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="ValidYear" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind ValidYear, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Info" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Info, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Memo" />
+                            <TextBox
+                                Margin="{StaticResource SmallLeftMargin}"
+                                Style="{StaticResource BodyTextBoxStyle}"
+                                Text="{x:Bind Memo, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 1" />
+                            <TextBlock
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 1"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource SmallTopMargin}">
+                            <TextBlock Style="{StaticResource SubtitleTextStyle}" Text="Note 2" />
+                            <TextBlock
+                                Margin="{StaticResource MediumBottomMargin}"
+                                AutomationProperties.HelpText="{Binding Text, RelativeSource={RelativeSource Self}}"
+                                AutomationProperties.Name="Detail note 2"
+                                Style="{StaticResource BodyTextStyle}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis hendrerit nulla, vel molestie libero. In nec ultricies magna, ultricies molestie ipsum. Mauris non dignissim velit. Etiam malesuada blandit mauris eu maximus. Quisque ornare, felis nec scelerisque mollis, risus dolor posuere magna, in gravida quam mi id nisi. Nullam mattis consequat ex. Cras nulla neque, dictum ac urna et, vestibulum feugiat ex. Pellentesque malesuada accumsan ligula, vel fringilla lacus facilisis sit amet. Proin convallis tempor arcu, ac placerat libero pretium ut. Praesent hendrerit nisl at lobortis viverra. Fusce vitae velit odio. Nam ut tortor sed purus finibus sollicitudin quis at ante. Ut sodales dolor vel eros mollis suscipit. Donec eu nulla id urna ultricies consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="400" />
+            <RowDefinition Height="400" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            HorizontalAlignment="Left"
+            Orientation="Horizontal">
+            <TextBox Height="35" PlaceholderText="Regnum">
+                <TextBox.Text>
+                    <Binding
+                        Mode="TwoWay"
+                        Path="SearchRegnumName"
+                        UpdateSourceTrigger="PropertyChanged" />
+                </TextBox.Text>
+            </TextBox>
+            <Button
+                Width="60"
+                Margin="2"
+                Command="{x:Bind D03RegnumsViewModel.GetRegnumsByNameOrIdCommand, Mode=OneWay}"
+                Content="Search"
+                CornerRadius="15" />
+            <Button
+                Width="60"
+                Margin="2"
+                Command="{x:Bind D03RegnumsViewModel.AddRegnumCommand, Mode=OneWay}"
+                Content="Add"
+                CornerRadius="15" />
+            <Button
+                Width="60"
+                Margin="2"
+                Command="{x:Bind D03RegnumsViewModel.SaveRegnumCommand, Mode=OneWay}"
+                Content="Save"
+                CornerRadius="15" />
+            <Button
+                Width="60"
+                Margin="2"
+                Command="{x:Bind D03RegnumsViewModel.CopyRegnumCommand, Mode=OneWay}"
+                Content="Copy"
+                CornerRadius="15" />
+            <Button
+                Width="60"
+                Margin="2"
+                Command="{x:Bind D03RegnumsViewModel.DeleteRegnumCommand, Mode=OneWay}"
+                Content="Delete"
+                CornerRadius="15" />
+        </StackPanel>
+        <ListView
+            x:Name="LvRegnums"
+            Grid.Row="1"
+            Grid.Column="0"
+            BorderBrush="Black"
+            BorderThickness="1"
+            ItemTemplate="{StaticResource RegnumItemTemplate}"
+            ItemsSource="{Binding Source={StaticResource RegnumsList}}"
+            SelectedItem="{Binding SelectedRegnum, Mode=TwoWay}"
+            SelectionMode="Single" />
+        <TabView
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.Column="1">
+            <TabView.TabItems>
+                <TabViewItem Header="Regnum">
+                    <ScrollViewer>
+                        <ContentControl
+                            Content="{Binding SelectedRegnum}"
+                            ContentTemplate="{StaticResource RegnumDetailTemplate}"
+                            IsTabStop="True" />
+                    </ScrollViewer>
+                </TabViewItem>
+                <TabViewItem Header="Phylum">
+                    <ScrollViewer>
+                        <ContentControl
+                            Content="{Binding SelectedPhylum}"
+                            ContentTemplate="{StaticResource PhylumDetailTemplate}"
+                            IsTabStop="True" />
+                    </ScrollViewer>
+                </TabViewItem>
+                <TabViewItem Header="Division">
+                    <ScrollViewer>
+                        <ContentControl
+                            Content="{Binding SelectedDivision}"
+                            ContentTemplate="{StaticResource DivisionDetailTemplate}"
+                            IsTabStop="True" />
+                    </ScrollViewer>
+                </TabViewItem>
+                <TabViewItem Header="Reference">
+                    <TabView>
+                        <TabView.TabItems>
+                            <TabViewItem Header="RefExpert">
+                                <ScrollViewer>
+                                    <ContentControl
+                                        Content="{Binding SelectedRefExpert}"
+                                        ContentTemplate="{StaticResource RefExpertDetailTemplate}"
+                                        IsTabStop="True" />
+                                </ScrollViewer>
+                            </TabViewItem>
+                            <TabViewItem Header="RefSource">
+                                <ScrollViewer>
+                                    <ContentControl
+                                        Content="{Binding SelectedRefSource}"
+                                        ContentTemplate="{StaticResource RefSourceDetailTemplate}"
+                                        IsTabStop="True" />
+                                </ScrollViewer>
+                            </TabViewItem>
+                            <TabViewItem Header="RefAuthor">
+                                <ScrollViewer>
+                                    <ContentControl
+                                        Content="{Binding SelectedRefAuthor}"
+                                        ContentTemplate="{StaticResource RefAuthorDetailTemplate}"
+                                        IsTabStop="True" />
+                                </ScrollViewer>
+                            </TabViewItem>
+                        </TabView.TabItems>
+                    </TabView>
+                </TabViewItem>
+                <TabViewItem Header="Comment">
+                    <ScrollViewer>
+                        <ContentControl
+                            Content="{Binding SelectedComment}"
+                            ContentTemplate="{StaticResource CommentDetailTemplate}"
+                            IsTabStop="True" />
+                    </ScrollViewer>
+                </TabViewItem>
+            </TabView.TabItems>
+        </TabView>
+        <TabView Grid.Row="2" Grid.Column="0">
+            <TabView.TabItems>
+                <TabViewItem Header="Phylums">
+                    <ScrollViewer>
+                        <ListView
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            ItemTemplate="{StaticResource PhylumItemTemplate}"
+                            ItemsSource="{Binding Source={StaticResource PhylumsList}}"
+                            SelectedItem="{Binding SelectedPhylum, Mode=TwoWay}"
+                            SelectionMode="Single" />
+                    </ScrollViewer>
+                </TabViewItem>
+                <TabViewItem Header="Divisions">
+                    <ScrollViewer>
+                        <ListView
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            ItemTemplate="{StaticResource DivisionItemTemplate}"
+                            ItemsSource="{Binding Source={StaticResource DivisionsList}}"
+                            SelectedItem="{Binding SelectedDivision, Mode=TwoWay}"
+                            SelectionMode="Single" />
+                    </ScrollViewer>
+                </TabViewItem>
+                <TabViewItem Header="References">
+                    <TabView>
+                        <TabView.TabItems>
+                            <TabViewItem Header="RefExperts">
+                                <ScrollViewer>
+                                    <ListView
+                                        BorderBrush="Black"
+                                        BorderThickness="1"
+                                        ItemTemplate="{StaticResource RefExpertItemTemplate}"
+                                        ItemsSource="{Binding Source={StaticResource RefExpertsList}}"
+                                        SelectedItem="{Binding SelectedRefExpert, Mode=TwoWay}"
+                                        SelectionMode="Single" />
+                                </ScrollViewer>
+                            </TabViewItem>
+                            <TabViewItem Header="RefSources">
+                                <ScrollViewer>
+                                    <ListView
+                                        BorderBrush="Black"
+                                        BorderThickness="1"
+                                        ItemTemplate="{StaticResource RefSourceItemTemplate}"
+                                        ItemsSource="{Binding Source={StaticResource RefSourcesList}}"
+                                        SelectedItem="{Binding SelectedRefSource, Mode=TwoWay}"
+                                        SelectionMode="Single" />
+                                </ScrollViewer>
+                            </TabViewItem>
+                            <TabViewItem Header="RefAuthors">
+                                <ScrollViewer>
+                                    <ListView
+                                        BorderBrush="Black"
+                                        BorderThickness="1"
+                                        ItemTemplate="{StaticResource RefAuthorItemTemplate}"
+                                        ItemsSource="{Binding Source={StaticResource RefAuthorsList}}"
+                                        SelectedItem="{Binding SelectedRefAuthor, Mode=TwoWay}"
+                                        SelectionMode="Single" />
+                                </ScrollViewer>
+                            </TabViewItem>
+                        </TabView.TabItems>
+                    </TabView>
+                </TabViewItem>
+                <TabViewItem Header="Comments">
+                    <ScrollViewer>
+                        <ListView
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            ItemTemplate="{StaticResource CommentItemTemplate}"
+                            ItemsSource="{Binding Source={StaticResource CommentsList}}"
+                            SelectedItem="{Binding SelectedComment, Mode=TwoWay}"
+                            SelectionMode="Single" />
+                    </ScrollViewer>
+                </TabViewItem>
+            </TabView.TabItems>
+        </TabView>
+        <!--<TabView Grid.Row="2" Grid.Column="0"  >
+            <TabView.TabStripHeader>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+        -->
+        <!--<TextBox PlaceholderText="Regnum">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="SearchRegnumName"
+                                UpdateSourceTrigger="PropertyChanged" />
+                        </TextBox.Text>
+                    </TextBox>-->
+
+        <!--<AutoSuggestBox
+                        x:Name="AutoSuggestBox"
+                        Width="150"
+                        Margin="2"
+                        VerticalAlignment="Center"
+                        PlaceholderText="Regnum"
+                        QueryIcon="Find"
+                        TextChanged="AutoSuggestBox_OnTextChanged">
+        -->
+        <!--<AutoSuggestBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="SearchRegnumName"
+                                UpdateSourceTrigger="PropertyChanged" />
+                        </AutoSuggestBox.Text>-->
+        <!--
+                    </AutoSuggestBox>-->
+
+        <!--<Button
+                        Width="60"
+                        Margin="2"
+                        Command="{x:Bind D03RegnumsViewModel.GetRegnumsByNameOrIdCommand, Mode=OneWay}"
+                        Content="Search"
+                        CornerRadius="15" />-->
+        <!--
+                    <Button
+                        Width="60"
+                        Margin="2"
+                        Command="{x:Bind D03RegnumsViewModel.AddPhylumCommand, Mode=OneWay}"
+                        Content="Add"
+                        CornerRadius="15" />
+                </StackPanel>
+            </TabView.TabStripHeader>
+            <TabView.TabItems>
+                <TabView Grid.Row="1" Grid.Column="0">
+                    <TabView.TabItems>
+                        <TabViewItem Header="Phylum">
+                            <TabViewItem.IconSource>
+                                <SymbolIconSource Symbol="Filter" />
+                            </TabViewItem.IconSource>
+                            <ScrollViewer>
+                                <ListView
+                            x:Name="PhylumsList3"
+                            Width="Auto"
+                            Height="400"
+                            MinWidth="400"
+                            HorizontalAlignment="Left"
+                            BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                            BorderThickness="1"
+                            ItemsSource="{Binding Source={StaticResource PhylumsList}}"
+                            SelectionMode="Single">
+                                    <ListView.SelectedItem>
+                                        <Binding Path="(Selector.SelectedItem)" />
+                                    </ListView.SelectedItem>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:Name="PhylumDataTemplate" x:DataType="models:Tbl06Phylum">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Ellipse
+                                            x:Name="Ellipse"
+                                            Grid.RowSpan="2"
+                                            Width="32"
+                                            Height="32"
+                                            Margin="6"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                                                <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Margin="12,6,0,0"
+                                            x:Phase="1"
+                                            Style="{ThemeResource BaseTextBlockStyle}"
+                                            Text="{x:Bind PhylumId}" />
+                                                <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="12,0,0,6"
+                                            x:Phase="2"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind PhylumName}" />
+                                                <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="212,0,0,6"
+                                            x:Phase="4"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind Author}" />
+                                                <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="312,0,0,6"
+                                            x:Phase="5"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind AuthorYear}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
+                        </TabViewItem>
+                    </TabView.TabItems>
+
+                </TabView>
+            </TabView.TabItems>
+        </TabView>-->
+    </Grid>
+
+    <!--<Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Compact">
+            <AppBarButton
+                x:Name="AddAppBarButton"
+                Command="{x:Bind RegnumsViewModel.GetRegnumsByNameOrIdCommand, Mode=OneWay}"
+                Icon="Add"
+                IsCompact="True"
+                Label="New" />
+        </CommandBar>
+    </Page.BottomAppBar>-->
+
+    <!--<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
+
+    -->
+    <!--<StackPanel x:Name="MainGrid" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+            <Button Command="{Binding OkCommand}" Content="Ok" />
+        </StackPanel>-->
+    <!--
+
+
+
+        <TabView TabWidthMode="SizeToContent">
+            <TabView.TabStripHeader>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+    -->
+    <!--<TextBox PlaceholderText="Regnum">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="SearchRegnumName"
+                                UpdateSourceTrigger="PropertyChanged" />
+                        </TextBox.Text>
+                    </TextBox>-->
+    <!--
+
+                    <AutoSuggestBox
+                        x:Name="AutoSuggestBox"
+                        Width="150"
+                        Margin="2"
+                        VerticalAlignment="Center"
+                        PlaceholderText="Regnum"
+                        QueryIcon="Find"
+                        TextChanged="AutoSuggestBox_OnTextChanged">
+    -->
+    <!--<AutoSuggestBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="SearchRegnumName"
+                                UpdateSourceTrigger="PropertyChanged" />
+                        </AutoSuggestBox.Text>-->
+    <!--
+                    </AutoSuggestBox>
+
+                    <Button
+                        Width="60"
+                        Margin="2"
+                        Command="{x:Bind RegnumsViewModel.GetRegnumsByNameOrIdCommand, Mode=OneWay}"
+                        Content="Search"
+                        CornerRadius="15" />
+                    <Button
+                        Width="60"
+                        Margin="2"
+                        Command="{x:Bind RegnumsViewModel.AddRegnumCommand, Mode=OneWay}"
+                        Content="Add"
+                        CornerRadius="15" />
+                </StackPanel>
+            </TabView.TabStripHeader>
+            <TabView.TabItems>
+                <TabViewItem Header="Regnum">
+                    <TabViewItem.IconSource>
+                        <SymbolIconSource Symbol="Filter" />
+                    </TabViewItem.IconSource>
+                    <ScrollViewer>
+                        <ListView
+                            x:Name="RegnumsList3"
+                            Width="Auto"
+                            Height="400"
+                            MinWidth="400"
+                            HorizontalAlignment="Left"
+                            BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                            BorderThickness="1"
+                            ItemsSource="{Binding Source={StaticResource RegnumsList}}"
+                            SelectionMode="Single">
+                            <ListView.SelectedItem>
+                                <Binding Path="(Selector.SelectedItem)" />
+                            </ListView.SelectedItem>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:Name="RegnumDataTemplate" x:DataType="models:Tbl03Regnum">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse
+                                            x:Name="Ellipse"
+                                            Grid.RowSpan="2"
+                                            Width="32"
+                                            Height="32"
+                                            Margin="6"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Margin="12,6,0,0"
+                                            x:Phase="1"
+                                            Style="{ThemeResource BaseTextBlockStyle}"
+                                            Text="{x:Bind RegnumId}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="12,0,0,6"
+                                            x:Phase="2"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind RegnumName}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="112,0,0,6"
+                                            x:Phase="3"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind Subregnum}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="212,0,0,6"
+                                            x:Phase="4"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind Author}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="312,0,0,6"
+                                            x:Phase="5"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind AuthorYear}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                </TabViewItem>
+            </TabView.TabItems>
+        </TabView>
+        <TabView Grid.Row="1" Grid.Column="0">
+            <TabView.TabItems>
+                <TabViewItem Header="Phylum">
+                    <TabViewItem.IconSource>
+                        <SymbolIconSource Symbol="Filter" />
+                    </TabViewItem.IconSource>
+                    <ScrollViewer>
+                        <ListView
+                            x:Name="PhylumsList3"
+                            Width="Auto"
+                            Height="400"
+                            MinWidth="400"
+                            HorizontalAlignment="Left"
+                            BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                            BorderThickness="1"
+                            ItemsSource="{Binding Source={StaticResource PhylumsList}}"
+                            SelectionMode="Single">
+                            <ListView.SelectedItem>
+                                <Binding Path=" SelectedItem" />
+                            </ListView.SelectedItem>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:Name="PhylumDataTemplate" x:DataType="models:Tbl06Phylum">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse
+                                            x:Name="Ellipse"
+                                            Grid.RowSpan="2"
+                                            Width="32"
+                                            Height="32"
+                                            Margin="6"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Margin="12,6,0,0"
+                                            x:Phase="1"
+                                            Style="{ThemeResource BaseTextBlockStyle}"
+                                            Text="{x:Bind PhylumId}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="12,0,0,6"
+                                            x:Phase="2"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind PhylumName}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="212,0,0,6"
+                                            x:Phase="4"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind Author}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="312,0,0,6"
+                                            x:Phase="5"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind AuthorYear}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                </TabViewItem>
+            </TabView.TabItems>
+
+        </TabView>
+    </Grid>-->
+</Page>

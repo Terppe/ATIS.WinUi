@@ -13,6 +13,7 @@
     <None Remove="Assets\Aquarium2.jpg" />
     <None Remove="Assets\Aquarium3.png" />
     <None Remove="Assets\Nilpferd.jpg" />
+    <None Remove="Pages\LoginPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -78,5 +79,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ATIS.WinUi.DataLayer\ATIS.WinUi.DataLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Pages\LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
